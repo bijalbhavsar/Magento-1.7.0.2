@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Os Studios Design Serviços Digitais LTDA
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    Os Studios
+ * @package     OsStudios_Triage
+ * @copyright   Copyright (c) 2012 Os Studios Design Serviços Digitais LTDA. (http://www.osstudios.com.br/)
+ * @license     Information not Available
+ */
+ -->
+<config>
+    <modules>
+        <OsStudios_Triage>
+            <version>0.1.0.0</version>
+        </OsStudios_Triage>
+    </modules>
+    <global>
+        <models>
+            <triage>
+                <class>OsStudios_Triage_Model</class>
+            </triage>
+            <checkout>
+                <rewrite>
+                    <cart>OsStudios_Triage_Model_Checkout_Cart</cart>
+                </rewrite>
+            </checkout>
+        </models>
+        <blocks>
+            <triage>
+                <class>OsStudios_Triage_Block</class>
+            </triage>
+        </blocks>
+        <events>
+            <log_log_clean_after>
+                <observers>
+                    <catalog_product_compare_item>
+                        <class>catalog/observer</class>
+                        <method>catalogProductCompareClean</method>
+                    </catalog_product_compare_item>
+                </observers>
+            </log_log_clean_after>
+            <page_block_html_topmenu_gethtml_before>
+                <observers>
+                    <catalog_add_topmenu_items>
+                        <class>catalog/observer</class>
+                        <method>addCatalogToTopmenuItems</method>
+                    </catalog_add_topmenu_items>
+                </observers>
+            </page_block_html_topmenu_gethtml_before>
+        </events>
+    </global>
+    <adminhtml>
+        <translate>
+            <modules>
+                <OsStudios_Triage>
+                    <files>
+                        <default>OsStudios_Triage.csv</default>
+                    </files>
+                </OsStudios_Triage>
+            </modules>
+        </translate>
+    </adminhtml>
+</config>
