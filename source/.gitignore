@@ -1,0 +1,14 @@
+app/etc/local.xml
+
+downloader/cache.cfg
+downloader/connect.cfg
+downloader/.cache/
+
+media/catalog/product/cache/
+
+var/log/
+var/locks/
+var/session/
+var/cache/
+var/report/
+var/package/
