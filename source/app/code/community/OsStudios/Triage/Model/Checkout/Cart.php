@@ -22,7 +22,36 @@ class OsStudios_Triage_Model_Checkout_Cart extends Mage_Checkout_Model_Cart
      * @param type $requestInfo
      * @return type
      */
-    public function addProduct($productInfo, $requestInfo = null) {
+    public function addProduct($productInfo, $requestInfo = null)
+    {
+        if(Mage::helper('triage')->isEnabled()) {
+            
+            $collection = $productInfo->getCategoryCollection();
+            $allowed = explode(',', $this->_getConfig('categories'));
+            
+            foreach( $collection as $category ) {
+                
+                if(!Mage::helper('customer')->isLoggedin()) {
+                    $message = Mage::helper('triage')->__('To purchase this product you need to login in the system.');
+                    Mage::throwException($message);
+                } else {
+                    
+                    $customer = Mage::getSingleton('customer/session')->getCustomer();
+                    $allowed_groups = explode(',', $this->_getConfig('groups'));
+                    
+                    if( in_array($category->getEntityId(), $allowed) && !in_array($customer->getGroupId(), $allowed_groups)) {
+                        $message = Mage::helper('triage')->__('This product cannot be added to your cart.');
+                        Mage::throwException($message);
+                    }
+                }
+            }
+        }
+        
         return parent::addProduct($productInfo, $requestInfo);
+    }
+    
+    private function _getConfig($field = null)
+    {
+        return Mage::getStoreConfig("triage/general/{$field}");
     }
 }
