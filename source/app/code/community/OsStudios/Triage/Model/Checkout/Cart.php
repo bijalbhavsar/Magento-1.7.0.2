@@ -32,7 +32,7 @@ class OsStudios_Triage_Model_Checkout_Cart extends Mage_Checkout_Model_Cart
             foreach( $collection as $category ) {
                 
                 if(!Mage::helper('customer')->isLoggedin()) {
-                    $message = Mage::helper('triage')->__('To purchase this product you need to login in the system.');
+                    $message = Mage::helper('triage')->getOfflineMessage();
                     Mage::throwException($message);
                 } else {
                     
@@ -40,7 +40,7 @@ class OsStudios_Triage_Model_Checkout_Cart extends Mage_Checkout_Model_Cart
                     $allowed_groups = explode(',', $this->_getConfig('groups'));
                     
                     if( in_array($category->getEntityId(), $allowed) && !in_array($customer->getGroupId(), $allowed_groups)) {
-                        $message = Mage::helper('triage')->__('This product cannot be added to your cart.');
+                        $message = Mage::helper('triage')->getNotInGroupMessage();
                         Mage::throwException($message);
                     }
                 }

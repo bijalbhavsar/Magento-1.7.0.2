@@ -45,6 +45,24 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </groups>
+                        <offline_message translate="label,comment">
+                            <label>Message to Offline Customer</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This message will be displayed when any offline customer tries to add some product to cart.</comment>
+                        </offline_message>
+                        <notingroup_message translate="label,comment">
+                            <label>Message to Customers Who Are not in Allowed Groups</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>This message will be displayed when a customer that is not into any allowed group tries to add some product to cart.</comment>
+                        </notingroup_message>
                     </fields>
                 </general>
             </groups>

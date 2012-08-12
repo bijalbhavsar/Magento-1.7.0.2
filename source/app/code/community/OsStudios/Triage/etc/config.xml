@@ -76,6 +76,8 @@
         <triage>
             <general>
                 <enabled>0</enabled>
+                <offline_message>To purchase this product you need to login in the system.</offline_message>
+                <notingroup_message>You're not allowed to purchase this product. Please contact us for more information.</notingroup_message>
             </general>
         </triage>
     </default>
