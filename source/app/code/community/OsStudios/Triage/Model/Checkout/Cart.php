@@ -24,34 +24,12 @@ class OsStudios_Triage_Model_Checkout_Cart extends Mage_Checkout_Model_Cart
      */
     public function addProduct($productInfo, $requestInfo = null)
     {
-        if(Mage::helper('triage')->isEnabled()) {
-            
-            $collection = $productInfo->getCategoryCollection();
-            $allowed = explode(',', $this->_getConfig('categories'));
-            
-            foreach( $collection as $category ) {
-                
-                if(!Mage::helper('customer')->isLoggedin()) {
-                    $message = Mage::helper('triage')->getOfflineMessage();
-                    Mage::throwException($message);
-                } else {
-                    
-                    $customer = Mage::getSingleton('customer/session')->getCustomer();
-                    $allowed_groups = explode(',', $this->_getConfig('groups'));
-                    
-                    if( in_array($category->getEntityId(), $allowed) && !in_array($customer->getGroupId(), $allowed_groups)) {
-                        $message = Mage::helper('triage')->getNotInGroupMessage();
-                        Mage::throwException($message);
-                    }
-                }
-            }
-        }
-        
+    	$helper = Mage::helper('triage');
+    	
+    	if(!$helper->isProductAllowed($productInfo)) {
+    		Mage::throwException($helper->getError()->getErrorMessage());
+    	}
+    	
         return parent::addProduct($productInfo, $requestInfo);
-    }
-    
-    private function _getConfig($field = null)
-    {
-        return Mage::getStoreConfig("triage/general/{$field}");
     }
 }
